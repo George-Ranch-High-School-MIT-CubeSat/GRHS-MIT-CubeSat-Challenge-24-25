@@ -1,1 +1,1 @@
-Hi
+GRHS CubeSAT for 2024-2025
