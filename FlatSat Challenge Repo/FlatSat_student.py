@@ -23,7 +23,7 @@ from picamera2 import Picamera2
 
 #VARIABLES
 THRESHOLD = 0      #Any desired value from the accelerometer
-REPO_PATH = "GRHS-MIT-CubeSat-Challege-24-25/FlatSat Challenge Repo"     #Your github repo path: ex. /home/pi/FlatSatChallenge
+REPO_PATH = "/home/CubeSat/Downloads/GRHS-MIT-CubeSat-Challenge-24-25/FlatSat Challenge Repo"     #Your github repo path: ex. /home/pi/FlatSatChallenge
 FOLDER_PATH = "/Images"   #Your image folder path in your GitHub repo: ex. /Images
 
 #imu and camera initialization
