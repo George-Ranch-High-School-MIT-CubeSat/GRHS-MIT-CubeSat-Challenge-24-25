@@ -50,18 +50,21 @@ def git_push():
             print(f"Switching to main branch...")
             repo.git.checkout('main')  # Checkout to 'main' if on a different branch
         
-        # Pull changes to ensure the repo is up-to-date
+        # Pull the latest changes from the remote repository
+        print("Pulling latest changes...")
         origin.pull()
         print("Pulled changes from the remote")
         
         # Add all changes and commit
-        repo.git.add(A=True)
+        print("Staging files...")
+        repo.git.add(A=True)  # Stage all files
+        print("Committing changes...")
         repo.index.commit('New Photo')
-        print("Committed changes")
         
         # Push changes
+        print("Pushing changes...")
         origin.push()
-        print('Pushed changes')
+        print('Pushed changes successfully')
     
     except Exception as e:
         print(f"Couldn't upload to git: {str(e)}")
