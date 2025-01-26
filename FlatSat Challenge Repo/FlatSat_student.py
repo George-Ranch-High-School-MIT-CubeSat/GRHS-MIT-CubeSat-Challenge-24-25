@@ -1,109 +1,102 @@
-"""
-The Python code you will write for this module should read
-acceleration data from the IMU. When a reading comes in that surpasses
-an acceleration threshold (indicating a shake), your Pi should pause,
-trigger the camera to take a picture, then save the image with a
-descriptive filename. You may use GitHub to upload your images automatically,
-but for this activity it is not required.
-
-The provided functions are only for reference, you do not need to use them. 
-You will need to complete the take_photo() function and configure the VARIABLES section
-"""
-
-#AUTHOR: Ethan Jeng
-#DATE:12/13/24
-
-#import libraries
 import time
 import board
 from adafruit_lsm6ds.lsm6dsox import LSM6DSOX as LSM6DS
 from adafruit_lis3mdl import LIS3MDL
-from git import Repo
+import subprocess
+import os
 from picamera2 import Picamera2
 
-#VARIABLES
-THRESHOLD = 0      #Any desired value from the accelerometer
-REPO_PATH = "/home/CubeSat/FlatSat Challenge Repo"     #Your github repo path: ex. /home/pi/FlatSatChallenge
-FOLDER_PATH = "/Images"   #Your image folder path in your GitHub repo: ex. /Images
+# VARIABLES
+THRESHOLD = 0      # Any desired value from the accelerometer
+REPO_PATH = "/home/CubeSat/FlatSat Challenge Repo"  # Your GitHub repo path
+FOLDER_PATH = "Images"   # Your image folder path in your GitHub repo
 
-#imu and camera initialization
+# imu and camera initialization
 i2c = board.I2C()
 accel_gyro = LSM6DS(i2c)
 mag = LIS3MDL(i2c)
 picam2 = Picamera2()
 
+
 def git_push():
     """
     This function stages, commits, and pushes new images to your GitHub repo.
+    Uses subprocess to interact with git commands directly.
     """
     try:
-        repo = Repo(REPO_PATH)
-        origin = repo.remote('origin')
-        print(f"Remote URL: {origin.url}")  # Debugging remote URL
+        print(f"Checking repo at {REPO_PATH}")
         
-        # Check current branch
-        current_branch = repo.active_branch.name
-        print(f"Current branch: {current_branch}")  # Debugging branch name
-        
-        # Set upstream for 'main' if not set
-        if current_branch != 'main':
-            print(f"Switching to main branch...")
-            repo.git.checkout('main')  # Checkout to 'main' if on a different branch
+        # Check if the repo path exists and is correct
+        if not os.path.isdir(REPO_PATH):
+            print(f"ERROR: Repo path does not exist: {REPO_PATH}")
+            return
+
+        # Print the remote URL to verify
+        print("Checking remote URL...")
+        subprocess.run(["git", "-C", REPO_PATH, "remote", "get-url", "origin"], check=True)
         
         # Pull the latest changes from the remote repository
-        print("Pulling latest changes...")
-        origin.pull()
-        print("Pulled changes from the remote")
+        print("Pulling latest changes from remote...")
+        pull_process = subprocess.run(["git", "-C", REPO_PATH, "pull"], check=False, capture_output=True, text=True)
         
-        # Add all changes and commit
+        if pull_process.returncode != 0:
+            print(f"Error during git pull: {pull_process.stderr}")
+        else:
+            print("Pulled changes successfully.")
+        
+        # Stage and commit the changes using subprocess
         print("Staging files...")
-        repo.git.add(A=True)  # Stage all files
-        print("Committing changes...")
-        repo.index.commit('New Photo')
+        subprocess.run(["git", "-C", REPO_PATH, "add", "."], check=True)
+        print("Files staged.")
         
-        # Push changes
-        print("Pushing changes...")
-        origin.push()
-        print('Pushed changes successfully')
+        print("Committing changes...")
+        subprocess.run(["git", "-C", REPO_PATH, "commit", "-m", "New Photo"], check=True)
+        print("Commit successful.")
+        
+        # Push the changes to GitHub
+        print("Pushing changes to GitHub...")
+        subprocess.run(["git", "-C", REPO_PATH, "push"], check=True)
+        print("Pushed changes successfully.")
     
+    except subprocess.CalledProcessError as e:
+        print(f"Error during git operation: {str(e)}")
     except Exception as e:
         print(f"Couldn't upload to git: {str(e)}")
 
 
-
 def img_gen(name):
     """
-    This function is complete. Generates a new image name.
-
-    Parameters:
-        name (str): your name ex. MasonM
+    Generates a new image name with a timestamp.
     """
     t = time.strftime("_%H%M%S")
-    imgname = (f'{REPO_PATH}/{FOLDER_PATH}/{name}{t}.jpg')
+    imgname = f'{REPO_PATH}/{FOLDER_PATH}/{name}{t}.jpg'
     return imgname
 
 
 def take_photo():
     """
-    This function is NOT complete. Takes a photo when the FlatSat is shaken.
-    Replace psuedocode with your own code.
+    This function takes a photo when the FlatSat is shaken.
     """
     while True:
         accelx, accely, accelz = accel_gyro.acceleration
 
-        #CHECKS IF READINGS ARE ABOVE THRESHOLD
+        # Check if the acceleration exceeds the threshold
         if accelx > THRESHOLD or accely > THRESHOLD or accelz > THRESHOLD:
-            #PAUSE
+            # Pause before taking a photo
             time.sleep(2)
-            #name = ""     #First Name, Last Initial  ex. MasonM
-            name = "EthanJ"
-            #TAKE PHOTO
+            name = "EthanJ"  # Your name for the photo (e.g., EthanJ)
+            
+            # Take a photo with the camera
             picam2.start()
             picam2.capture_file(img_gen(name))
-            #PUSH PHOTO TO GITHUB
+            picam2.stop()  # Ensure camera stops after taking the photo
+            
+            # Push the photo to GitHub
             git_push()
-        #PAUSE
+
+        # Pause to prevent constant checking
         time.sleep(2)
+
 
 def main():
     take_photo()
