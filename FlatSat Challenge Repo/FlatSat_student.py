@@ -43,13 +43,13 @@ def git_push():
         print('added remote')
         origin.pull()
         print('pulled changes')
-        repo.git.add(REPO_PATH + FOLDER_PATH)
+        repo.git.add(A=True)  # Add all modified files
         repo.index.commit('New Photo')
         print('made the commit')
         origin.push()
         print('pushed changes')
-    except:
-        print('Couldn\'t upload to git')
+    except Exception as e:
+        print(f"Couldn't upload to git: {str(e)}")
 
 
 def img_gen(name):
