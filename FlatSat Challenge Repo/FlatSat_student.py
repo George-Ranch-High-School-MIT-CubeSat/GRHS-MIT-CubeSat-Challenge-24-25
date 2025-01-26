@@ -32,24 +32,40 @@ accel_gyro = LSM6DS(i2c)
 mag = LIS3MDL(i2c)
 picam2 = Picamera2()
 
-
 def git_push():
     """
-    This function is complete. Stages, commits, and pushes new images to your GitHub repo.
+    This function stages, commits, and pushes new images to your GitHub repo.
     """
     try:
         repo = Repo(REPO_PATH)
         origin = repo.remote('origin')
-        print('added remote')
+        print(f"Remote URL: {origin.url}")  # Debugging remote URL
+        
+        # Check current branch
+        current_branch = repo.active_branch.name
+        print(f"Current branch: {current_branch}")  # Debugging branch name
+        
+        # Set upstream for 'main' if not set
+        if current_branch != 'main':
+            print(f"Switching to main branch...")
+            repo.git.checkout('main')  # Checkout to 'main' if on a different branch
+        
+        # Pull changes to ensure the repo is up-to-date
         origin.pull()
-        print('pulled changes')
-        repo.git.add(A=True)  # Add all modified files
+        print("Pulled changes from the remote")
+        
+        # Add all changes and commit
+        repo.git.add(A=True)
         repo.index.commit('New Photo')
-        print('made the commit')
+        print("Committed changes")
+        
+        # Push changes
         origin.push()
-        print('pushed changes')
+        print('Pushed changes')
+    
     except Exception as e:
         print(f"Couldn't upload to git: {str(e)}")
+
 
 
 def img_gen(name):
