@@ -18,6 +18,11 @@ import subprocess
 from sensor_calc_V2 import *
 #from FlatSat_student import *
 
+# VARIABLES
+THRESHOLD = 0      # Any desired value from the accelerometer
+REPO_PATH = "/home/CubeSat/GRHS-MIT-CubeSat-Challenge-24-25/FlatSat Challenge Repo"  # Your GitHub repo path
+FOLDER_PATH = "Images"   # Your image folder path in your GitHub repo
+
 #imu and camera initialization
 i2c = busio.I2C(board.SCL, board.SDA)
 accel_gyro = LSM6DS(i2c)
