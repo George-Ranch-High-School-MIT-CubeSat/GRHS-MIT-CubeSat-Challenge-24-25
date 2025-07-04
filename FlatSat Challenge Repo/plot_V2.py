@@ -89,7 +89,7 @@ def animate(i, xs, type,y1,y2,y3, mag_offset, gyro_offset, initial_angle):
     y3 = y3[-20:]
     plt.grid()
     plt.legend()
-    plt.xlabel('Time')
+    plt.xlabel('Time (sec)')
 
 def plot_data(type = 'am'):
     mag_offset = calibrate_mag()
