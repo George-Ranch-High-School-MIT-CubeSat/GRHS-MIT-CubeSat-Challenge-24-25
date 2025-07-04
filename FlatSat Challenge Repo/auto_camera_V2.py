@@ -49,9 +49,9 @@ def capture(dir ='roll', target_angle = 30):
         #certain angle: give yourself some margin for error.
         while not(target_angle + 5 >= prev_angle[0] and target_angle - 5 <= prev_angle[0]):
             if prev_angle[0] > target_angle + 5:
-                print("Move the CubeSat by at least " + (prev_angle[0] - (target_angle + 5)) + " degrees to the left.")
+                print("Move the CubeSat by at least " + str(prev_angle[0] - (target_angle + 5)) + " degrees to the left.")
             else:
-                print("Move the CubeSat by at least " + ((target_angle + 5) - prev_angle[0]) + " degrees to the right.")
+                print("Move the CubeSat by at least " + str((target_angle + 5) - prev_angle[0]) + " degrees to the right.")
             prev_angle = set_initial(offset_mag)
         print("Hold position")
         take_photo()
