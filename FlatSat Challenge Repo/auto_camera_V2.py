@@ -40,9 +40,9 @@ def capture(dir ='roll', target_angle = 30):
         numDir = 0
     elif dir == 'pitch':
         numDir = 1
-    else {
+    else:
         numDir = 2
-    }
+    
     print("Begin moving camera.")
     while True:
         accelX, accelY, accelZ = accel_gyro.acceleration #m/s^2
