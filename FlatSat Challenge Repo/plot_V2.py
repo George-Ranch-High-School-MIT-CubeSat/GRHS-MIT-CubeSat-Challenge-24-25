@@ -15,7 +15,7 @@ import matplotlib.animation as animation
 from matplotlib import style
 import numpy as np
 import sys
-from sensor_calc import *
+from sensor_calc_V2 import *
 
 #imu initialization
 i2c = busio.I2C(board.SCL, board.SDA)
