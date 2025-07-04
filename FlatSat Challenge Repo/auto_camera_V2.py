@@ -53,6 +53,7 @@ def capture(dir ='roll', target_angle = 30):
             else:
                 print("Move the CubeSat by at least " + ((target_angle + 5) - prev_angle) + " degrees to the right.")
         print("Hold position")
+        take_photo()
         
 
 if __name__ == '__main__':
