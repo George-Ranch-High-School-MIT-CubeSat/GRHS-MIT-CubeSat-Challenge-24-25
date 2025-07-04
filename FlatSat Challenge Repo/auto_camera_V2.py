@@ -36,9 +36,9 @@ def capture(dir ='roll', target_angle = 30):
     offset_gyro =calibrate_gyro()
     initial_angle = set_initial(offset_mag)
     prev_angle = initial_angle
-    if dir = 'roll':
+    if dir == 'roll':
         numDir = 0
-    elif dir = 'pitch':
+    elif dir == 'pitch':
         numDir = 1
     else {
         numDir = 2
