@@ -14,6 +14,7 @@ import busio
 from picamera2 import Picamera2
 import numpy as np
 import sys
+import subprocess
 from sensor_calc_V2 import *
 from FlatSat_student import *
 
@@ -52,7 +53,7 @@ def capture(dir ='roll', target_angle = 30):
             else:
                 print("Move the CubeSat by at least " + ((target_angle + 5) - prev_angle) + " degrees to the right.")
         print("Hold position")
-        take_photo()
+        
 
 if __name__ == '__main__':
     capture(*sys.argv[1:])
