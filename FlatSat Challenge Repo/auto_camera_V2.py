@@ -14,7 +14,8 @@ import busio
 from picamera2 import Picamera2
 import numpy as np
 import sys
-from sensor_calc import *
+from sensor_calc_V2 import *
+from FlatSat_student import *
 
 #imu and camera initialization
 i2c = busio.I2C(board.SCL, board.SDA)
@@ -44,7 +45,14 @@ def capture(dir ='roll', target_angle = 30):
         gyroZ = gyroZ *180/np.pi - offset_gyro[2]
         
         #TODO: Everything else! Be sure to not take a picture on exactly a
-        #certain angle: give yourself some margin for error. 
+        #certain angle: give yourself some margin for error.
+        while not(target_angle + 5 >= prev_angle and target_angle - 5 <= prev_angle):
+            if prev_angel > target_angle + 5:
+                print("Move the CubeSat by at least " + (prev_angle - (target_angle + 5)) + " degrees to the left.")
+            else:
+                print("Move the CubeSat by at least " + ((target_angle + 5) - prev_angle) " degrees to the right.")
+        print("Hold position")
+        take_photo()
 
 if __name__ == '__main__':
     capture(*sys.argv[1:])
