@@ -52,21 +52,77 @@ def yaw_gy(prev_angle, delT, gyro):
 #Activity 3: Sensor calibration
 def calibrate_mag():
     #TODO: Set up lists, time, etc
-    #print("Preparing to calibrate magnetometer. Please wave around.")
-    #time.sleep(3)
-    #print("Calibrating...")
+    mag_list = []
+    print("Preparing to calibrate magnetometer. Please wave around.")
+    time.sleep(3)
+    print("Calibrating...")
+    magX_max = -10e9
+    magX_min = 10e9
+    magY_max = -10e9
+    magY_min = 10e9
+    magZ_max = -10e9
+    magZ_min = 10e9
+    start_time = time.time()
+    duration = 5
+    while time.time() - start_time < duration:
+        magX, magY, magZ = mag.magnetic #gauss
+        if magX > magX_max:
+            magX_max = magX
+        if magX < magX_min:
+            magX_min = magX
+
+        if magY > magY_max:
+            magY_max = magY
+        if magY < magY_min:
+            magY_min = magY
+
+        if magZ > magZ_max:
+            magZ_max = magZ
+        if magZ < magZ_min:
+            magZ_min = magZ
     #TODO: Calculate calibration constants
-   # print("Calibration complete.")
-    return [0,0,0]
+    mag_list.append(magX_max - magX_min)
+    mag_list.append(magY_max - magY_min)
+    mag_list.append(magZ_max - magZ_min)
+    print("Calibration complete.")
+    return mag_list
 
 def calibrate_gyro():
     #TODO
-    #print("Preparing to calibrate gyroscope. Put down the board and do not touch it.")
-    #time.sleep(3)
-    #print("Calibrating...")
+    gyro_list = []
+    print("Preparing to calibrate gyroscope. Put down the board and do not touch it.")
+    time.sleep(3)
+    print("Calibrating...")
+    gyroX_max = -10e9
+    gyroX_min = 10e9
+    gyroY_max = -10e9
+    gyroY_min = 10e9
+    gyroZ_max = -10e9
+    gyroZ_min = 10e9
+    start_time = time.time()
+    duration = 5
+    while time.time() - start_time < duration:
+        gyroX, gyroY, gyroZ = accel_gyro.gyro #rad/s
+        if gyroX > gyroX_max:
+            gyroX_max = gyroX
+        if gyroX < gyroX_min:
+            gyroX_min = gyroX
+
+        if gyroY > gyroY_max:
+            gyroY_max = gyroY
+        if gyroY < gyroY_min:
+            gyroY_min = gyroY
+
+        if gyroZ > gyroZ_max:
+            gyroZ_max = gyroZ
+        if gyroZ < gyroZ_min:
+            gyroZ_min = gyroZ
     #TODO
-    #print("Calibration complete.")
-    return [0, 0, 0]
+    mag_list.append(gyroX_max - gyroX_min)
+    mag_list.append(gyroY_max - gyroY_min)
+    mag_list.append(gyroZ_max - gyroZ_min)
+    print("Calibration complete.")
+    return gyro_list
 
 def set_initial(mag_offset = [0,0,0]):
     """
