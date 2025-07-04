@@ -118,9 +118,9 @@ def calibrate_gyro():
         if gyroZ < gyroZ_min:
             gyroZ_min = gyroZ
     #TODO
-    mag_list.append(gyroX_max - gyroX_min)
-    mag_list.append(gyroY_max - gyroY_min)
-    mag_list.append(gyroZ_max - gyroZ_min)
+    gyro_list.append(gyroX_max - gyroX_min)
+    gyro_list.append(gyroY_max - gyroY_min)
+    gyro_list.append(gyroZ_max - gyroZ_min)
     print("Calibration complete.")
     return gyro_list
 
