@@ -36,6 +36,13 @@ def capture(dir ='roll', target_angle = 30):
     offset_gyro =calibrate_gyro()
     initial_angle = set_initial(offset_mag)
     prev_angle = initial_angle
+    if dir = 'roll':
+        numDir = 0
+    elif dir = 'pitch':
+        numDir = 1
+    else {
+        numDir = 2
+    }
     print("Begin moving camera.")
     while True:
         accelX, accelY, accelZ = accel_gyro.acceleration #m/s^2
@@ -52,11 +59,11 @@ def capture(dir ='roll', target_angle = 30):
         
         #TODO: Everything else! Be sure to not take a picture on exactly a
         #certain angle: give yourself some margin for error.
-        while not(target_angle + 5 >= prev_angle[0] and target_angle - 5 <= prev_angle[0]):
-            if prev_angle[0] > target_angle + 5:
-                print("Move the CubeSat by at least " + str(prev_angle[0] - (target_angle + 5)) + " degrees to the left.")
+        while not(target_angle + 5 >= prev_angle[numDir] and target_angle - 5 <= prev_angle[numDir]):
+            if prev_angle[numDir] > target_angle + 5:
+                print("Move the CubeSat by at least " + str(prev_angle[numDir] - (target_angle + 5)) + " degrees to the left.")
             else:
-                print("Move the CubeSat by at least " + str((target_angle + 5) - prev_angle[0]) + " degrees to the right.")
+                print("Move the CubeSat by at least " + str((target_angle + 5) - prev_angle[numDir]) + " degrees to the right.")
             prev_angle = set_initial(offset_mag)
         print("Hold position")
         take_photo()
