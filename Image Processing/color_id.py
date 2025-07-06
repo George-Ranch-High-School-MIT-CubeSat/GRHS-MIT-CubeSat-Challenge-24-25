@@ -62,7 +62,7 @@ def color_id(image_file = 'test.jpg', show = False):
                      #on Github if you don't have VNC/X forwarding
 
 
-    image = cv2.imread('/Test Images/' + image_file) #Converts image to numpy array in BGR format
+    image = cv2.imread('/home/CubeSat.GRHS-MIT-Challenge-24-25/Image Processing/Test Images/' + image_file) #Converts image to numpy array in BGR format
     image_HSV = cv2.cvtColor(image, cv2.COLOR_BGR2HSV) #Converts BGR image to HSV format
     
     color_range, perc_blue, perc_green, perc_red = part_1(image)
