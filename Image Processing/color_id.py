@@ -25,15 +25,15 @@ def part_1(image):
     #<YOUR CODE GOES HERE>
 
     mask = get_mask(image, color_range["blue"][0], color_range["blue"][1])
-    pixels = np.count_nonzero(mask)
+    pixels = np.count_nonzero(cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY))
     color_amount["blue"] = pixels
     
     mask = get_mask(image, color_range["green"][0], color_range["green"][1])
-    pixels = np.count_nonzero(mask)
+    pixels = np.count_nonzero(cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY))
     color_amount["green"] = pixels
 
     mask = get_mask(image, color_range["red"][0], color_range["red"][1])
-    pixels = np.count_nonzero(mask)
+    pixels = np.count_nonzero(cv2.cvtColor(mask, cv2.COLOR_BGR2GRAY))
     color_amount["red"] = pixels
     
     total_pixels = image.shape[0] * image.shape[1]
