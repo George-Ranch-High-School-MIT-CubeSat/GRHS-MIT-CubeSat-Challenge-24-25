@@ -49,7 +49,7 @@ def part_1(image):
 def part_2(image, image_HSV):
     #PART 2 TODO: Increase saturation, contrast, brightness, etc
     #<YOUR CODE GOES HERE>
-    enhanced_image =  #Don't change the input images, store new enhanced image here
+    enhanced_image = image #Don't change the input images, store new enhanced image here        Note: Temp holder for image. Change later.
     
     return enhanced_image
 
