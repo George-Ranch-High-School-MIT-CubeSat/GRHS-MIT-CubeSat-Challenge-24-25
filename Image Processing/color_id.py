@@ -14,18 +14,25 @@ def get_mask(image, lower_bound, upper_bound):
 def part_1(image):
     color_range = {}
     #Figure out what the lower and upper bounds for each color should be
-    color_range["blue"] = [(2,2,215), (80,247,246)]
-    color_range["green"] = [(2,247,2), (80,247,186)]
-    color_range["red"] = [(247,2,2), (247,55,47)]
+    color_range["blue"] = [(100,100,50), (130,255,200)]
+    color_range["green"] = [(40,50,50), (80,255,255)]
+    color_range["red"] = [(0,50,50), (10,255,255), (170, 50, 50), (179, 255, 255)]
     
     #Counter for amount of pixels of each color
     color_amount = {"red":0, "green":0, "blue":0}
         
     #PART 1: COLOR IDENTIFICATION
     #<YOUR CODE GOES HERE>
+    
+    #Red part 1
     mask = get_mask(image, color_range["red"][0], color_range["red"][1])
     pixels = np.count_nonzero(mask)
     color_amount["red"] = pixels
+
+    #Red part 2
+    mask = get_mask(image, color_range["red"][2], color_range["red"][3])
+    pixels = np.count_nonzero(mask)
+    color_amount["red"] += pixels
 
     mask = get_mask(image, color_range["green"][0], color_range["green"][1])
     pixels = np.count_nonzero(mask)
@@ -45,14 +52,14 @@ def part_1(image):
     return (color_range, perc_blue, perc_green, perc_red)
 
 
-
+"""
 def part_2(image, image_HSV):
     #PART 2 TODO: Increase saturation, contrast, brightness, etc
     #<YOUR CODE GOES HERE>
     enhanced_image = image #Don't change the input images, store new enhanced image here        Note: Temp holder for image. Change later.
     
     return enhanced_image
-
+"""
     
     
 #Main code that is being run
