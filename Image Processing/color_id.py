@@ -14,9 +14,9 @@ def get_mask(image, lower_bound, upper_bound):
 def part_1(image):
     color_range = {}
     #Figure out what the lower and upper bounds for each color should be
-    color_range["blue"] = [(80, 0, 0), (255, 150, 150)]
-    color_range["green"] = [(0,80,0), (150,255,150)]
-    color_range["red"] = [(0, 0, 80), (150, 150, 255)]
+    color_range["blue"] = [(114, 0, 0), (255, 121, 121)] #(80, 0, 0), (255, 150, 150)
+    color_range["green"] = [(0,90,0), (149, 255, 149)] #(0,80,0), (150,255,150)
+    color_range["red"] = [(0, 0, 104), (137, 137, 255)] #(0, 0, 80), (150, 150, 255)
     
     #Counter for amount of pixels of each color
     color_amount = {"red":0, "green":0, "blue":0}
