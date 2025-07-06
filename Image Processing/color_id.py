@@ -28,12 +28,12 @@ def part_1(image):
     mask = get_mask(image, color_range["red"][0], color_range["red"][1])
     pixels = np.count_nonzero(mask)
     color_amount["red"] = pixels
-
+    """
     #Red part 2
     mask = get_mask(image, color_range["red"][2], color_range["red"][3])
     pixels = np.count_nonzero(mask)
     color_amount["red"] += pixels
-
+    """
     mask = get_mask(image, color_range["green"][0], color_range["green"][1])
     pixels = np.count_nonzero(mask)
     color_amount["green"] = pixels
