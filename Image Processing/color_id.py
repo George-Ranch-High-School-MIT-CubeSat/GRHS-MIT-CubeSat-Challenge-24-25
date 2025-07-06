@@ -23,15 +23,15 @@ def part_1(image):
         
     #PART 1: COLOR IDENTIFICATION
     #<YOUR CODE GOES HERE>
-    mask = inRange(image, color_range["red"][0], color_range["red"][1])
+    mask = get_mask(image, color_range["red"][0], color_range["red"][1])
     pixels = np.count_nonzero(mask)
     color_amount["red"] = pixels
 
-    mask = inRange(image, color_range["green"][0], color_range["green"][1])
+    mask = get_mask(image, color_range["green"][0], color_range["green"][1])
     pixels = np.count_nonzero(mask)
     color_amount["green"] = pixels
 
-    mask = inRange(image, color_range["blue"][0], color_range["blue"][1])
+    mask = get_mask(image, color_range["blue"][0], color_range["blue"][1])
     pixels = np.count_nonzero(mask)
     color_amount["blue"] = pixels
     
