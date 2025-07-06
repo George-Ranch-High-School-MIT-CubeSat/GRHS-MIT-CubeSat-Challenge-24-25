@@ -16,7 +16,7 @@ def part_1(image):
     #Figure out what the lower and upper bounds for each color should be
     color_range["blue"] = [(100,100,50), (130,255,200)]
     color_range["green"] = [(40,50,50), (80,255,255)]
-    color_range["red"] = [(0,50,50), (10,255,255), (170, 50, 50), (179, 255, 255)]
+    color_range["red"] = [(170, 50, 50), (179, 255, 255)] #Second set of values (0,50,50), (10,255,255)
     
     #Counter for amount of pixels of each color
     color_amount = {"red":0, "green":0, "blue":0}
