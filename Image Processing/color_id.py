@@ -44,14 +44,18 @@ def part_1(image):
     return (color_range, perc_blue, perc_green, perc_red)
 
 
-"""
+
 def part_2(image, image_HSV):
     #PART 2 TODO: Increase saturation, contrast, brightness, etc
     #<YOUR CODE GOES HERE>
+    #Loop through image
+    for i in image_HSV:
+        for j in image_HSV:
+            image_HSV[i, j] = 
     enhanced_image = image #Don't change the input images, store new enhanced image here        Note: Temp holder for image. Change later.
     
     return enhanced_image
-"""
+
     
     
 #Main code that is being run
